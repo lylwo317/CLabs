@@ -1,0 +1,28 @@
+{
+  "configurations": {
+    "HelloCLab: Launch": {
+      "adapter": "vscode-cpptools",
+      "configuration": {
+        "name": "HelloCLab: Launch",
+        "type": "cppdbg",
+        "request": "launch",
+        "program": "${workspaceRoot}/cmake-build-debug/HelloCLab",
+        "args": [],
+        "cwd": "${workspaceRoot}",
+        "environment": [],
+        "externalConsole": true,
+        "MIMode": "gdb"
+      }
+    },
+    "Cpp: Attach": {
+      "adapter": "vscode-cpptools",
+      "configuration": {
+        "name": "Cpp: Attach",
+        "type": "cppdbg",
+        "request": "attach",
+        "program": "${workspaceRoot}/cmake-build-debug/HelloCLab",
+        "MIMode": "gdb"
+      }
+    }
+  }
+}
