@@ -2,3 +2,9 @@ cmake-build-debug
 compile_commands.json
 .clangd/
 build/
+.vs/
+.project/
+.DS_Store
+._.DS_Store
+.cproject
+.project

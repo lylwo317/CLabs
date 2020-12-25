@@ -1,6 +1,11 @@
 {
     "files.associations": {
         "*.mak": "makefile",
-        "cstdio": "c"
+        "cstdio": "c",
+        "cstdlib": "c",
+        "locale": "c",
+        "ostream": "c",
+        "new": "c",
+        "iostream": "cpp"
     }
 }
