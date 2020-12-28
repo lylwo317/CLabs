@@ -52,7 +52,7 @@ public:
 * 为了能在局部变量或者new的时候都能初始化类的成员，必须要自己定义默认构造函数，否则就会出现没有初始化的情况。
 * 如果只是需要初始化为0，可以直接在构造函数中调用memset来初始化
 */
-int main(int argc, char const *argv[])
+int testConstructor()
 {
 	//没有生成构造函数，不会初始化
 	PersonA personA1;
@@ -173,4 +173,62 @@ int main(int argc, char const *argv[])
 
     delete p10;
     delete p11;
+
+	return 0;
+}
+
+
+class A
+{
+public:
+	int age = 0;
+	int height = 0;
+	A();
+	void display();
+	~A();
+
+private:
+
+};
+
+A::A()
+{
+}
+
+void A::display()
+{
+	cout << "age = " << age << endl;
+	cout << "height = " << height << endl;
+}
+
+A::~A()
+{
+}
+
+
+
+void testCopyConstructor() {
+
+	A a = A();
+	a.age = 100;
+	a.height = 23;
+
+	//会调用拷贝构造函数。 利用旧的对象创建新对象的时候才会调用拷贝构造
+	A a1 = A(a);
+	A a2 = a1;
+
+	//这里只有拷贝
+	A a3 = a2;
+
+	a1.display();
+	a2.display();
+	a3.display();
+
+}
+
+
+int main(int argc, char const* argv[]) {
+	//testConstructor();
+	testCopyConstructor();
+	return 0;
 }

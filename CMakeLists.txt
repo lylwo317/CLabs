@@ -49,4 +49,10 @@ target_link_libraries(TestCalInC cal)
 add_executable(TestCalInCpp src/calculator/testcalInCpp.cpp)
 target_link_libraries(TestCalInCpp cal)
 
-add_executable(TestNew "src/cpp/TestContructor.cpp")
+add_executable(TestConstructor src/cpp/TestConstructor.cpp)
+
+add_executable(TestDestructor src/cpp/TestDestructor.cpp)
+
+add_executable(TestInherit "src/cpp/TestInherit.cpp")
+add_executable(TestInitializationList src/cpp/TestInitializationList.cpp)
+add_executable(TestVirtual src/cpp/TestVirtual.cpp)
