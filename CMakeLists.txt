@@ -56,3 +56,5 @@ add_executable(TestDestructor src/cpp/TestDestructor.cpp)
 add_executable(TestInherit "src/cpp/TestInherit.cpp")
 add_executable(TestInitializationList src/cpp/TestInitializationList.cpp)
 add_executable(TestVirtual src/cpp/TestVirtual.cpp)
+
+add_executable(TestLogging src/base/noncopyable.cpp src/base/logging.cpp src/base/logstream.cpp src/base/main.cpp)

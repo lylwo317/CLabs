@@ -8,3 +8,5 @@ build/
 ._.DS_Store
 .cproject
 .project
+.idea/
+/CMakeLists.txt.user
