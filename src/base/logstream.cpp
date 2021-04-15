@@ -1,5 +1,7 @@
 #include "logstream.h"
 #include <algorithm>
+#include <iostream>
+int ab = 12;
 namespace kx {
 const char digits[] = "9876543210123456789";
 const char* zero = digits + 9;
@@ -30,7 +32,7 @@ size_t convert(char buf[], T value)
 
 Logstream::Logstream()
 {
-
+    std::cout << ab << std::endl;
 }
 
 void Logstream::formatInteger(long long v){

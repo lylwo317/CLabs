@@ -1,6 +1,10 @@
 #include "logging.h"
 #include <iostream>
 #include "logstream.h"
+#include <typeinfo>
+extern int ab;
+
+extern int ab = 23;
 
 int main(int argc, char *argv[])
 {
@@ -9,9 +13,19 @@ int main(int argc, char *argv[])
 //    logstream << a;
     kx::Logging logger;
     logger.stream() << true;
-    [] (kx::Logging& logger){
+    auto lam = [] (kx::Logging& logger){
         logger.stream() << 123;
         std::cout << "finish" << std::endl;
-    }(logger);
+    };
+
+    auto lam1 = [&] (){
+        logger.stream() << 456;
+        std::cout << "finish" << std::endl;
+    };
+
+
+//    bool a = 12;
+//    std::cout<<"lam1的类型是"<<typeid(a).name()<< std::endl;
+    lam1();
     return 0;
 }

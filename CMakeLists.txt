@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.10)
-project(cLab C CXX)
+project(CLabs C CXX)
 
 # specify the C standard
 set(CMAKE_C_STANDARD 11)
@@ -9,6 +9,8 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall")
 set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS TRUE)
 # 生成compile_commands.json
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+set(DEBUG_SDL FALSE)
+set(DEBUG_GLIBC FALSE)
 
 #set(SDL2_INCLUDE_DIR "/home/kevin/CLionProjects/SDL/out/include/SDL")
 IF (WIN32)
@@ -18,10 +20,24 @@ IF (WIN32)
 ELSEIF (APPLE)
 	MESSAGE(STATUS "Now is Apple systens.")
 ELSEIF (UNIX)
-	include_directories("/home/kevin/CLionProjects/SDL/out/include/SDL" "/home/kevin/CLionProjects/SDL/out/include")
-	link_directories("/home/kevin/glibc-2.31/out/lib" "/home/kevin/CLionProjects/SDL/out/lib" "/home/kevin/CLionProjects/CLabs/build")
+	if (DEBUG_GLIBC)
+        #添加debug版glibc链接路径
+		set(GLIBC_LIB_DIR /home/kevin/glibc-2.31/out/lib)
+		link_directories("${GLIBC_LIB_DIR}")
+	endif ()
+
+	if (DEBUG_SDL)
+		set(SDL_INCLUDE_DIR /home/kevin/CLionProjects/SDL/out/include)
+		set(SDL_LIB_DIR /home/kevin/CLionProjects/SDL/out/lib)
+		include_directories("${SDL_INCLUDE_DIR}/SDL" "${SDL_INCLUDE_DIR}")
+		link_directories("${SDL_LIB_DIR}")
+		set(SDL2_LIBRARIES SDL2d)
+	else()
+		find_package(SDL2 REQUIRED)
+		include_directories(${SDL2_INCLUDE_DIRS})
+	endif ()
 	link_libraries(c)
-	MESSAGE(STATUS "Now is UNIX-like OS's. Including aPPLE os x  and CygWin")
+	MESSAGE(STATUS "Now is UNIX-like OS's. Including APPLE os x  and CygWin")
 
 	add_executable(TestSds "src/string/TestSds.c" "src/string/sds.c" "src/string/zmalloc.c")
 ENDIF ()
@@ -29,11 +45,11 @@ ENDIF ()
 add_executable(HelloCLab src/Hello.c)
 add_executable(TestParameter src/TestParameter.c)
 
-#add_executable(TestSDL2 src/sdl2/TestSDL2.c)
-#target_link_libraries(TestSDL2 SDL2d)
+add_executable(TestSDL2 src/sdl2/TestSDL2.c)
+target_link_libraries(TestSDL2 ${SDL2_LIBRARIES})
 
-#add_executable(DisplayImage src/sdl2/DisplayImage.c)
-#target_link_libraries(DisplayImage SDL2d)
+add_executable(DisplayImage src/sdl2/DisplayImage.c)
+target_link_libraries(DisplayImage ${SDL2_LIBRARIES})
 
 add_executable(TestStrFunction src/TestStringFunction.c)
 
