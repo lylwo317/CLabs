@@ -4,8 +4,6 @@
 #include <typeinfo>
 extern int ab;
 
-extern int ab = 23;
-
 int main(int argc, char *argv[])
 {
 //    kx::Logstream logstream;

@@ -18,7 +18,7 @@ IF (WIN32)
     #set(CMAKE_CXX_FLAGS_RELEASE "-Od ${CMAKE_CXX_FLAGS}")
 	#STRING(REPLACE "-O2" "-Od" CMAKE_CXX_FLAGS_RELEASE ${CMAKE_CXX_FLAGS_RELEASE})
 ELSEIF (APPLE)
-	MESSAGE(STATUS "Now is Apple systens.")
+	MESSAGE(STATUS "Now is Apple systems.")
 ELSEIF (UNIX)
 	if (DEBUG_GLIBC)
         #添加debug版glibc链接路径
@@ -37,7 +37,7 @@ ELSEIF (UNIX)
 		include_directories(${SDL2_INCLUDE_DIRS})
 	endif ()
 	link_libraries(c)
-	MESSAGE(STATUS "Now is UNIX-like OS's. Including APPLE os x  and CygWin")
+	MESSAGE(STATUS "Now is UNIX-like OS's. Including Linux  and CygWin")
 
 	add_executable(TestSds "src/string/TestSds.c" "src/string/sds.c" "src/string/zmalloc.c")
 ENDIF ()
@@ -55,7 +55,7 @@ add_executable(TestStrFunction src/TestStringFunction.c)
 
 add_executable(TestInt8 src/Int8Lab.c)
 
-add_executable(HelloCpp src/Hello.cpp)
+add_executable(HelloCpp src/Hello.cpp src/student.cpp src/MyArray.cpp src/MyArray.h)
 
 add_library(cal SHARED src/calculator/cal.c)
 
@@ -72,5 +72,9 @@ add_executable(TestDestructor src/cpp/TestDestructor.cpp)
 add_executable(TestInherit "src/cpp/TestInherit.cpp")
 add_executable(TestInitializationList src/cpp/TestInitializationList.cpp)
 add_executable(TestVirtual src/cpp/TestVirtual.cpp)
+add_executable(TestException src/exception/main.cpp)
+
+add_executable(TestSelect src/net/TestSelect.c)
+add_executable(TestPoll src/net/TestPoll.c)
 
 add_executable(TestLogging src/base/noncopyable.cpp src/base/logging.cpp src/base/logstream.cpp src/base/main.cpp)
