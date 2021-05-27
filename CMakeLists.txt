@@ -77,4 +77,7 @@ add_executable(TestException src/exception/main.cpp)
 add_executable(TestSelect src/net/TestSelect.c)
 add_executable(TestPoll src/net/TestPoll.c)
 
+add_executable(SimplestVideoPlaySDL2 src/ffmpeg/simplest_video_play_sdl2.cpp)
+target_link_libraries(SimplestVideoPlaySDL2 ${SDL2_LIBRARIES})
+
 add_executable(TestLogging src/base/noncopyable.cpp src/base/logging.cpp src/base/logstream.cpp src/base/main.cpp)
