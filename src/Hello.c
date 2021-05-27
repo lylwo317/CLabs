@@ -4,9 +4,14 @@
 static int *a;
 #define FF_ARRAY_ELEMS(a) (sizeof(a) / sizeof((a)[0]))
 
+int add(int* a, int* b){
+
+}
+
 int main(int argc, char *argv[])
 {
-    
+
+    add(10, 20);
     int **b = &a;
     char *hello = "hello";//编译的时候，会存在常量区，所以不能对hello修改
     char str1[] = {"TsinghuaOK"};//存在函数栈中，是局部变量，可以修改

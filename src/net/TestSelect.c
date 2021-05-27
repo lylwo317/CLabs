@@ -72,7 +72,7 @@ int main(int argc, char *argv[])
     if (rc < 0)
     {
         perror("bind() failed");
-        close(listen_socket_fd);
+        close(listen_socket_fd);//这里不关闭也不会有什么问题，因为进程结束了，这些资源也会被关闭。
         exit(-1);
     }
 

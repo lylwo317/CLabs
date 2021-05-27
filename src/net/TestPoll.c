@@ -3,10 +3,10 @@
 #include <sys/ioctl.h>
 #include <sys/poll.h>
 #include <sys/socket.h>
-#include <sys/time.h>
 #include <netinet/in.h>
 #include <errno.h>
 #include <unistd.h>
+#include <string.h>
 
 #define SERVER_PORT  12345
 
