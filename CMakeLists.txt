@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 3.10)
 project(CLabs C CXX)
-
+set(CMAKE_C_COMPILER "gcc")
+set(CMAKE_CXX_COMPILER "g++")
 # specify the C standard
 set(CMAKE_C_STANDARD 11)
 set(CMAKE_C_STANDARD_REQUIRED True)
@@ -11,6 +12,7 @@ set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS TRUE)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(DEBUG_SDL FALSE)
 set(DEBUG_GLIBC FALSE)
+set(DEBUG_FFMPEG TRUE)
 
 #set(SDL2_INCLUDE_DIR "/home/kevin/CLionProjects/SDL/out/include/SDL")
 IF (WIN32)
@@ -36,6 +38,13 @@ ELSEIF (UNIX)
 		find_package(SDL2 REQUIRED)
 		include_directories(${SDL2_INCLUDE_DIRS})
 	endif ()
+
+        if (DEBUG_FFMEPG)
+            include_directories("/home/kevin/CLionProjects/FFmpeg/out/include")
+            link_directories("/home/kevin/CLionProjects/FFmpeg/out/lib")
+        else()
+        endif()
+
 	link_libraries(c)
 	MESSAGE(STATUS "Now is UNIX-like OS's. Including Linux  and CygWin")
 
@@ -79,5 +88,20 @@ add_executable(TestPoll src/net/TestPoll.c)
 
 add_executable(SimplestVideoPlaySDL2 src/ffmpeg/simplest_video_play_sdl2.cpp)
 target_link_libraries(SimplestVideoPlaySDL2 ${SDL2_LIBRARIES})
+
+add_executable(ffTutorial01 src/ffmpeg/tutorial01)
+target_link_libraries(ffTutorial01
+    ${SDL2_LIBRARIES}
+    avcodec
+    avdevice
+    avfilter
+    avformat
+    avutil
+    swresample
+    swscale)
+
+add_executable(memoryLayout src/memorylayout/MemoryLayout.c)
+#强制编译32位
+set_target_properties(memoryLayout PROPERTIES COMPILE_FLAGS "-m32" LINK_FLAGS "-m32")
 
 add_executable(TestLogging src/base/noncopyable.cpp src/base/logging.cpp src/base/logstream.cpp src/base/main.cpp)

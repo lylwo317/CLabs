@@ -1,7 +1,7 @@
 #include "student.h"
 #include <iostream>
 
-Student::Student(std::string _name):name(new std::string(std::move(_name)))
+Student::Student(std::string _name):name(_name)
 {
     std::cout << "new String()" << std::endl;
     std::cout << "Student()" << std::endl;
@@ -9,19 +9,19 @@ Student::Student(std::string _name):name(new std::string(std::move(_name)))
 
 Student::~Student()
 {
-    if (name != nullptr) {
-        delete name;
-        std::cout << "delete String()" << std::endl;
-    }
+//    if (name != nullptr) {
+//        delete name;
+//        std::cout << "delete String()" << std::endl;
+//    }
     std::cout << "~Student()" << std::endl;
 }
 
-std::string *Student::getName() const
+std::string Student::getName() const
 {
     return name;
 }
 
-void Student::setName(std::string *name)
+void Student::setName(std::string name)
 {
     Student::name = name;
 }
