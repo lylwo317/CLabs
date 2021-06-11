@@ -5,9 +5,7 @@ class Animal {
 public:
 	virtual void speak() = 0;//类似java的抽象类或者接口
 	virtual void run() = 0;
-	virtual ~Animal() {
-
-	}
+	virtual ~Animal() = default;
 };
 
 class Dog : public Animal {
@@ -15,11 +13,11 @@ public:
 	Dog() {
 		cout << "Dog::Dog()" << endl;
 	}
-	void speak() {
+	void speak() override {
 		cout << "Dog::speak()" << endl;
 	}
 
-	void run() {
+	void run() override {
 		cout << "Dog::run()" << endl;
 	}
 	
@@ -32,11 +30,11 @@ void liu(Animal* a) {
 
 class Cat : public Animal {
 public:
-	void speak() {
+	void speak() override {
 		cout << "Cat::speak()" << endl;
 	}
 
-	void run() {
+	void run() override {
 		cout << "Cat::run()" << endl;
 	}
 	
