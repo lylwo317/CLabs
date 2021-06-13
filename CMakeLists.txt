@@ -88,6 +88,8 @@ add_executable(TestVirtualInherit src/cpp/TestVirtualInherit.cpp)
 add_executable(TestGodBolt src/cpp/TestGodBolt.cpp)
 add_executable(TestException src/exception/main.cpp)
 add_executable(TestSingleton src/cpp/TestSingleton.cpp)
+add_executable(TestOperator src/cpp/TestOperator.cpp)
+add_executable(TestMove src/cpp/TestMove.cpp)
 
 add_executable(TestSelect src/net/TestSelect.c)
 add_executable(TestPoll src/net/TestPoll.c)
