@@ -90,6 +90,7 @@ add_executable(TestException src/exception/main.cpp)
 add_executable(TestSingleton src/cpp/TestSingleton.cpp)
 add_executable(TestOperator src/cpp/TestOperator.cpp)
 add_executable(TestMove src/cpp/TestMove.cpp)
+add_executable(TestForward src/cpp/TestForward.cpp)
 
 add_executable(TestSelect src/net/TestSelect.c)
 add_executable(TestPoll src/net/TestPoll.c)
