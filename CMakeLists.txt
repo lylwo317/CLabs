@@ -95,6 +95,7 @@ add_executable(TestCast src/cpp/TestCast.cpp)
 add_executable(TestLambda src/cpp/TestLambda.cpp)
 add_executable(TestConst src/cpp/TestConst.cpp)
 add_executable(TestConstexpr src/cpp/TestConstexpr.cpp)
+add_executable(TestAuto src/cpp/TestAuto.cpp)
 
 add_executable(TestSelect src/net/TestSelect.c)
 add_executable(TestPoll src/net/TestPoll.c)
