@@ -7,9 +7,12 @@
 
 using namespace std;
 
+class Car;
+
 class Person {
-	int m_age;
+	int m_age = 0;
 public:
+    shared_ptr<Car> m_car;
 	Person() {
 		cout << "Person()" << endl;
 	}
@@ -22,6 +25,18 @@ public:
 	void run() {
 		cout << "run() - " << m_age << endl;
 	}
+};
+
+
+class Car {
+public:
+    weak_ptr<Person> m_person;//通过弱引用解决循环引用问题
+    Car() {
+        cout << "Car()" << endl;
+    }
+    ~Car() {
+        cout << "~Car()" << endl;
+    }
 };
 
 /* First instantiated from: insights.cpp:227 */
@@ -92,10 +107,20 @@ void testUniquePointer(){
 
 }
 
+void testRecycleReference(){
+    //通过弱引用解决
+    shared_ptr<Person> person(new Person());
+    shared_ptr<Car> car(new Car());
+
+    person->m_car = car;
+    car->m_person = person;
+}
+
 int main()
 {
 //    testAutoPointer();
 //    testSharedPointer();
-    testUniquePointer();
+//    testUniquePointer();
+    testRecycleReference();
     return 0;
 }
