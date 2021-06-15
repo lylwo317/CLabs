@@ -98,6 +98,7 @@ add_executable(TestConstexpr src/cpp/TestConstexpr.cpp)
 add_executable(TestAuto src/cpp/TestAuto.cpp)
 add_executable(TestDecltype src/cpp/TestDecltype.cpp)
 add_executable(TestException src/cpp/TestException.cpp)
+add_executable(TestSmartPointer src/cpp/TestSmartPointer.cpp)
 
 add_executable(TestSelect src/net/TestSelect.c)
 add_executable(TestPoll src/net/TestPoll.c)
