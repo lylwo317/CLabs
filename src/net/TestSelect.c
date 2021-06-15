@@ -13,24 +13,22 @@
 #define TRUE             1
 #define FALSE            0
 
-int main(int argc, char *argv[])
-{
-    int    i, len, rc, on = 1;
-    int    listen_socket_fd, max_socket_fd, new_sd;
-    int    desc_ready, end_server = FALSE;
-    int    close_conn;
-    char   buffer[80];
+int main(int argc, char *argv[]) {
+    int i, len, rc, on = 1;
+    int listen_socket_fd, max_socket_fd, new_sd;
+    int desc_ready, end_server = FALSE;
+    int close_conn;
+    char buffer[80];
     struct sockaddr_in6 addr;
-    struct timeval      timeout;
-    fd_set              master_set, working_set;
+    struct timeval timeout;
+    fd_set master_set, working_set;
 
     /*************************************************************/
     /* Create an AF_INET6 stream socket to receive incoming      */
     /* connections on                                            */
     /*************************************************************/
     listen_socket_fd = socket(AF_INET6, SOCK_STREAM, 0);
-    if (listen_socket_fd < 0)
-    {
+    if (listen_socket_fd < 0) {
         perror("socket() failed");
         exit(-1);
     }
@@ -39,9 +37,8 @@ int main(int argc, char *argv[])
     /* Allow socket descriptor to be reuseable                   */
     /*************************************************************/
     rc = setsockopt(listen_socket_fd, SOL_SOCKET, SO_REUSEADDR,
-                    (char *)&on, sizeof(on));
-    if (rc < 0)
-    {
+                    (char *) &on, sizeof(on));
+    if (rc < 0) {
         perror("setsockopt() failed");
         close(listen_socket_fd);
         exit(-1);
@@ -52,9 +49,8 @@ int main(int argc, char *argv[])
     /* the incoming connections will also be nonblocking since   */
     /* they will inherit that state from the listening socket.   */
     /*************************************************************/
-    rc = ioctl(listen_socket_fd, FIONBIO, (char *)&on);//ioControl
-    if (rc < 0)
-    {
+    rc = ioctl(listen_socket_fd, FIONBIO, (char *) &on);//ioControl
+    if (rc < 0) {
         perror("ioctl() failed");
         close(listen_socket_fd);
         exit(-1);
@@ -64,13 +60,12 @@ int main(int argc, char *argv[])
     /* Bind the socket                                           */
     /*************************************************************/
     memset(&addr, 0, sizeof(addr));
-    addr.sin6_family      = AF_INET6;
+    addr.sin6_family = AF_INET6;
     memcpy(&addr.sin6_addr, &in6addr_any, sizeof(in6addr_any));
-    addr.sin6_port        = htons(SERVER_PORT);//host to network short
+    addr.sin6_port = htons(SERVER_PORT);//host to network short
     rc = bind(listen_socket_fd,
-              (struct sockaddr *)&addr, sizeof(addr));//将socket绑定到指定的ip和端口
-    if (rc < 0)
-    {
+              (struct sockaddr *) &addr, sizeof(addr));//将socket绑定到指定的ip和端口
+    if (rc < 0) {
         perror("bind() failed");
         close(listen_socket_fd);//这里不关闭也不会有什么问题，因为进程结束了，这些资源也会被关闭。
         exit(-1);
@@ -80,8 +75,7 @@ int main(int argc, char *argv[])
     /* Set the listen back log                                   */
     /*************************************************************/
     rc = listen(listen_socket_fd, 32);//监听端口
-    if (rc < 0)
-    {
+    if (rc < 0) {
         perror("listen() failed");
         close(listen_socket_fd);
         exit(-1);
@@ -98,15 +92,14 @@ int main(int argc, char *argv[])
     /* Initialize the timeval struct to 3 minutes.  If no        */
     /* activity after 3 minutes this program will end.           */
     /*************************************************************/
-    timeout.tv_sec  = 3 * 60;
+    timeout.tv_sec = 3 * 60;
     timeout.tv_usec = 0;
 
     /*************************************************************/
     /* Loop waiting for incoming connects or for incoming data   */
     /* on any of the connected sockets.                          */
     /*************************************************************/
-    do
-    {
+    do {
         /**********************************************************/
         /* Copy the master fd_set over to the working fd_set.     */
         /**********************************************************/
@@ -122,8 +115,7 @@ int main(int argc, char *argv[])
         /**********************************************************/
         /* Check to see if the select call failed.                */
         /**********************************************************/
-        if (rc < 0)
-        {
+        if (rc < 0) {
             perror("  select() failed");
             break;
         }
@@ -131,8 +123,7 @@ int main(int argc, char *argv[])
         /**********************************************************/
         /* Check to see if the 3 minute time out expired.         */
         /**********************************************************/
-        if (rc == 0)
-        {
+        if (rc == 0) {
             printf("  select() timed out.  End program.\n");
             break;
         }
@@ -142,8 +133,7 @@ int main(int argc, char *argv[])
         /* determine which ones they are.                         */
         /**********************************************************/
         desc_ready = rc;
-        for (i=0; i <= max_socket_fd && desc_ready > 0; ++i)
-        {
+        for (i = 0; i <= max_socket_fd && desc_ready > 0; ++i) {
             /*******************************************************/
             /* Check to see if this descriptor is ready            */
             /*******************************************************/
@@ -169,8 +159,7 @@ int main(int argc, char *argv[])
                     /* queued up on the listening socket before we   */
                     /* loop back and call select again.              */
                     /*************************************************/
-                    do
-                    {
+                    do {
                         /**********************************************/
                         /* Accept each incoming connection.  If       */
                         /* accept fails with EWOULDBLOCK, then we     */
@@ -184,10 +173,8 @@ int main(int argc, char *argv[])
 //                        The socket is marked nonblocking and no connections are present to be accepted.  POSIX.1-2001 and POSIX.1-2008 allow either error to be returned for  this
 //                        case, and do not require these constants to have the same value, so a portable application should check for both possibilities.
                         new_sd = accept(listen_socket_fd, NULL, NULL);//这里面其实是一个队列，所以循环去获取直到new_sd == -1为止
-                        if (new_sd < 0)
-                        {
-                            if (errno != EWOULDBLOCK)
-                            {
+                        if (new_sd < 0) {
+                            if (errno != EWOULDBLOCK) {
                                 perror("  accept() failed");
                                 end_server = TRUE;
                             }
@@ -210,66 +197,58 @@ int main(int argc, char *argv[])
                     } while (new_sd != -1);//处理下一个连接
                 }
 
-                /****************************************************/
-                /* This is not the listening socket, therefore an   */
-                /* existing connection must be readable             */
-                /****************************************************/
-                else
-                {//说明不是listen_socket_fd收到新的连接请求，而是其它已经与服务器建立的连接有可读数据
+                    /****************************************************/
+                    /* This is not the listening socket, therefore an   */
+                    /* existing connection must be readable             */
+                    /****************************************************/
+                else {//说明不是listen_socket_fd收到新的连接请求，而是其它已经与服务器建立的连接有可读数据
                     printf("  Descriptor %d is readable\n", i);
                     close_conn = FALSE;
                     /*************************************************/
                     /* Receive all incoming data on this socket      */
                     /* before we loop back and call select again.    */
                     /*************************************************/
-                    do
+                    /**********************************************/
+                    /* Receive data on this connection until the  */
+                    /* recv fails with EWOULDBLOCK.  If any other */
+                    /* failure occurs, we will close the          */
+                    /* connection.                                */
+                    /**********************************************/
+                    rc = recv(i, buffer, sizeof(buffer), 0);//读取数据
+                    if (rc < 0) {
+                        if (errno != EWOULDBLOCK) {
+                            perror("  recv() failed");
+                            close_conn = TRUE;
+                            goto close;
+                        }
+                    }
+
+                    /**********************************************/
+                    /* Check to see if the connection has been    */
+                    /* closed by the client                       */
+                    /**********************************************/
+                    if (rc == 0)//连接被关闭
                     {
-                        /**********************************************/
-                        /* Receive data on this connection until the  */
-                        /* recv fails with EWOULDBLOCK.  If any other */
-                        /* failure occurs, we will close the          */
-                        /* connection.                                */
-                        /**********************************************/
-                        rc = recv(i, buffer, sizeof(buffer), 0);//读取数据
-                        if (rc < 0)
-                        {
-                            if (errno != EWOULDBLOCK)
-                            {
-                                perror("  recv() failed");
-                                close_conn = TRUE;
-                            }
-                            break;
-                        }
+                        printf("  Connection closed\n");
+                        close_conn = TRUE;
+                        goto close;
+                    }
 
-                        /**********************************************/
-                        /* Check to see if the connection has been    */
-                        /* closed by the client                       */
-                        /**********************************************/
-                        if (rc == 0)//连接被关闭
-                        {
-                            printf("  Connection closed\n");
-                            close_conn = TRUE;
-                            break;
-                        }
+                    /**********************************************/
+                    /* Data was received                          */
+                    /**********************************************/
+                    len = rc;
+                    printf("  %d bytes received\n", len);
 
-                        /**********************************************/
-                        /* Data was received                          */
-                        /**********************************************/
-                        len = rc;
-                        printf("  %d bytes received\n", len);
-
-                        /**********************************************/
-                        /* Echo the data back to the client           */
-                        /**********************************************/
-                        rc = send(i, buffer, len, 0);//原样返回数据
-                        if (rc < 0)
-                        {
-                            perror("  send() failed");
-                            close_conn = TRUE;
-                            break;
-                        }
-
-                    } while (TRUE);
+                    /**********************************************/
+                    /* Echo the data back to the client           */
+                    /**********************************************/
+                    rc = send(i, buffer, len, 0);//原样返回数据
+                    if (rc < 0) {
+                        perror("  send() failed");
+                        close_conn = TRUE;
+                        goto close;
+                    }
 
                     /*************************************************/
                     /* If the close_conn flag was turned on, we need */
@@ -280,12 +259,11 @@ int main(int argc, char *argv[])
                     /* based on the bits that are still turned on in */
                     /* the master set.                               */
                     /*************************************************/
-                    if (close_conn)
-                    {
+                    close:
+                    if (close_conn) {
                         close(i);
                         FD_CLR(i, &master_set);
-                        if (i == max_socket_fd)
-                        {
+                        if (i == max_socket_fd) {
                             while (FD_ISSET(max_socket_fd, &master_set) == FALSE)
                                 max_socket_fd -= 1;
                         }
@@ -299,8 +277,7 @@ int main(int argc, char *argv[])
     /*************************************************************/
     /* Clean up all of the sockets that are open                 */
     /*************************************************************/
-    for (i=0; i <= max_socket_fd; ++i)
-    {
+    for (i = 0; i <= max_socket_fd; ++i) {
         if (FD_ISSET(i, &master_set))
             close(i);
     }
