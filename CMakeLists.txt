@@ -102,6 +102,7 @@ add_executable(TestSmartPointer src/cpp/TestSmartPointer.cpp)
 
 add_executable(TestSelect src/net/TestSelect.c)
 add_executable(TestPoll src/net/TestPoll.c)
+add_executable(TestEPoll src/net/TestEPoll.c)
 
 add_executable(SimplestVideoPlaySDL2 src/ffmpeg/simplest_video_play_sdl2.cpp)
 target_link_libraries(SimplestVideoPlaySDL2 ${SDL2_LIBRARIES})
