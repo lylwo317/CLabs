@@ -1,3 +1,4 @@
+#include <stdio.h>
 //全局静态变量
 static int g_static_int = 291;//.data
 //全局变量

@@ -52,8 +52,8 @@ ELSEIF (UNIX)
 	add_executable(TestSds "src/string/TestSds.c" "src/string/sds.c" "src/string/zmalloc.c")
 ENDIF ()
 
-add_executable(HelloCLab src/Hello.c)
-add_executable(TestParameter src/TestParameter.c)
+add_executable(HelloCLab src/c/Hello.c)
+add_executable(TestParameter src/c/TestParameter.c)
 
 add_executable(TestSDL2 src/sdl2/TestSDL2.c)
 target_link_libraries(TestSDL2 ${SDL2_LIBRARIES})
@@ -61,32 +61,17 @@ target_link_libraries(TestSDL2 ${SDL2_LIBRARIES})
 add_executable(DisplayImage src/sdl2/DisplayImage.c)
 target_link_libraries(DisplayImage ${SDL2_LIBRARIES})
 
-add_executable(TestStrFunction src/TestStringFunction.c)
-
-add_executable(TestInt8 src/Int8Lab.c)
-
-add_executable(HelloCpp src/Hello.cpp src/student.cpp src/MyArray.cpp src/MyArray.h)
-
-add_library(cal SHARED src/calculator/cal.c)
-
-add_executable(TestCalInC src/calculator/testcalInC.c)
-target_link_libraries(TestCalInC cal)
-
-add_executable(TestCalInCpp src/calculator/testcalInCpp.cpp)
-target_link_libraries(TestCalInCpp cal)
+add_executable(TestStrFunction src/c/TestStringFunction.c)
 
 add_executable(TestConstructor src/cpp/TestConstructor.cpp)
-
 add_executable(TestDestructor src/cpp/TestDestructor.cpp)
-
-add_executable(TestInherit "src/cpp/TestInherit.cpp")
+add_executable(TestInherit src/cpp/TestInherit.cpp)
 add_executable(TestInitializationList src/cpp/TestInitializationList.cpp)
 add_executable(TestVirtual src/cpp/TestVirtual.cpp)
 add_executable(TestPureVirtual src/cpp/TestPureVirtual.cpp)
 add_executable(TestMultiInherit src/cpp/TestMultiInherit.cpp)
 add_executable(TestVirtualInherit src/cpp/TestVirtualInherit.cpp)
 add_executable(TestGodBolt src/cpp/TestGodBolt.cpp)
-#add_executable(TestException src/exception/main.cpp)
 add_executable(TestSingleton src/cpp/TestSingleton.cpp)
 add_executable(TestOperator src/cpp/TestOperator.cpp)
 add_executable(TestMove src/cpp/TestMove.cpp)
