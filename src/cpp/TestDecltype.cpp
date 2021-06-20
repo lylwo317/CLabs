@@ -10,16 +10,6 @@ const int&& fx(){
 
 }
 
-class Person{
-private:
-    int age = 0;
-public:
-    int getAge(){
-        return age;
-    }
-};
-
-
 int main(int argc, const char *argv[]){
 
 

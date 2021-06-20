@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.10)
 project(CLabs C CXX)
-#set(CMAKE_C_COMPILER "gcc")
-#set(CMAKE_CXX_COMPILER "g++")
+set(CMAKE_C_COMPILER "gcc")
+set(CMAKE_CXX_COMPILER "g++")
 # specify the C standard
 set(CMAKE_C_STANDARD 11)
 set(CMAKE_CXX_STANDARD 11)
@@ -84,6 +84,7 @@ add_executable(TestAuto src/cpp/TestAuto.cpp)
 add_executable(TestDecltype src/cpp/TestDecltype.cpp)
 add_executable(TestException src/cpp/TestException.cpp)
 add_executable(TestSmartPointer src/cpp/TestSmartPointer.cpp)
+add_executable(TestTemplate src/cpp/template/TestTemplate.cpp)
 
 add_executable(TestSelect src/net/TestSelect.c)
 add_executable(TestPoll src/net/TestPoll.c)
