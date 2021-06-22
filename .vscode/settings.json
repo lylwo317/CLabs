@@ -6,6 +6,7 @@
         "locale": "c",
         "ostream": "c",
         "new": "c",
-        "iostream": "cpp"
+        "iostream": "cpp",
+        "utility": "cpp"
     }
 }

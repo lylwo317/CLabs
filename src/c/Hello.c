@@ -1,4 +1,5 @@
 #include <string.h>
+#include <stdio.h>
 
 static int *a;
 #define FF_ARRAY_ELEMS(a) (sizeof(a) / sizeof((a)[0]))

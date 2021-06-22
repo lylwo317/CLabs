@@ -97,7 +97,7 @@ void testAutoPointer(){
 
 void testSharedPointer(){
     shared_ptr<Person> p(new Person);
-    shared_ptr<Person[]> pArray(new Person[3]);
+    // shared_ptr<Person[]> pArray(new Person[3]);
     shared_ptr<Person> p2 = p;//拷贝，引用计数+1
 }
 void testUniquePointer(){

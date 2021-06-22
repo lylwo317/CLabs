@@ -22,6 +22,11 @@ IF (WIN32)
 	#STRING(REPLACE "-O2" "-Od" CMAKE_CXX_FLAGS_RELEASE ${CMAKE_CXX_FLAGS_RELEASE})
 ELSEIF (APPLE)
 	MESSAGE(STATUS "Now is Apple systems.")
+	find_package(SDL2 REQUIRED)
+	include_directories(${SDL2_INCLUDE_DIRS}/../)
+
+	include_directories("/usr/local/Cellar/ffmpeg/4.3.2_4/include")
+	link_directories("/usr/local/Cellar/ffmpeg/4.3.2_4/lib")
 ELSEIF (UNIX)
 	if (DEBUG_GLIBC)
         #添加debug版glibc链接路径
@@ -40,16 +45,22 @@ ELSEIF (UNIX)
 		include_directories(${SDL2_INCLUDE_DIRS})
 	endif ()
 
-        if (DEBUG_FFMEPG)
-            include_directories("/home/kevin/CLionProjects/FFmpeg/out/include")
-            link_directories("/home/kevin/CLionProjects/FFmpeg/out/lib")
-        else()
-        endif()
+	if (DEBUG_FFMEPG)
+		include_directories("/home/kevin/CLionProjects/FFmpeg/out/include")
+		link_directories("/home/kevin/CLionProjects/FFmpeg/out/lib")
+	else()
+	endif()
 
 	link_libraries(c)
 	MESSAGE(STATUS "Now is UNIX-like OS's. Including Linux  and CygWin")
 
 	add_executable(TestSds "src/string/TestSds.c" "src/string/sds.c" "src/string/zmalloc.c")
+
+	add_executable(memoryLayout src/memorylayout/MemoryLayout.c)
+	#强制编译32位
+	set_target_properties(memoryLayout PROPERTIES COMPILE_FLAGS "-m32" LINK_FLAGS "-m32")
+
+	add_executable(TestEPoll src/net/TestEPoll.c)
 ENDIF ()
 
 add_executable(HelloCLab src/c/Hello.c)
@@ -88,7 +99,6 @@ add_executable(TestTemplate src/cpp/template/TestTemplate.cpp)
 
 add_executable(TestSelect src/net/TestSelect.c)
 add_executable(TestPoll src/net/TestPoll.c)
-add_executable(TestEPoll src/net/TestEPoll.c)
 
 add_executable(SimplestVideoPlaySDL2 src/ffmpeg/simplest_video_play_sdl2.cpp)
 target_link_libraries(SimplestVideoPlaySDL2 ${SDL2_LIBRARIES})
@@ -103,9 +113,5 @@ target_link_libraries(ffTutorial01
     avutil
     swresample
     swscale)
-
-add_executable(memoryLayout src/memorylayout/MemoryLayout.c)
-#强制编译32位
-set_target_properties(memoryLayout PROPERTIES COMPILE_FLAGS "-m32" LINK_FLAGS "-m32")
 
 add_executable(TestLogging src/base/noncopyable.cpp src/base/logging.cpp src/base/logstream.cpp src/base/main.cpp)
