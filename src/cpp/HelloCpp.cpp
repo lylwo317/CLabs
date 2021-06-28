@@ -20,6 +20,8 @@ int main(int argc, char const *argv[])
     {
         cout << var << " ";
     }
+    std::cout << std::endl;
+    std::cout << "finish" << std::endl;
     /*Person person{};
     Person *person1 = new Person{};
     int *p1 = new int[30];//未初始化
