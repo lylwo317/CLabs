@@ -1,65 +1,26 @@
 #include <iostream>
 #include <utility>
-#include "student.h"
-#include "MyArray.h"
+#include <set>
 
 using namespace std;
 
 //左值引用: 只能绑定到左值；
 //右值引用: 可以绑定到右值
 //左值常量引用: 可以绑定到左值和右值
-
-///**
-// * 只能接受左值。所以不能通过copyArray(MyIntArray());来调用
-// *
-// * @brief copyArray
-// * @param src
-// */
-//void copyArray(MyIntArray &src)
-//{
-//    MyIntArray arr(src); // copies the array
-//    // use arr as needed...
-//}
-
-/**
- * 可以接受左值和右值，但是由于下面的函数匹配了右值。所以这个就只会匹配左值
- * @brief copyArray
- * @param src
- */
-void copyArray(const MyIntArray &src) {
-    MyIntArray arr(src); // copies the array
-    // use arr as needed...
-}
-
-/**
- * 精确匹配，这里接收右值
- * @brief copyArray
- * @param src
- */
-void copyArray(const MyIntArray &&src) {
-    MyIntArray arr(src); // copies the array
-    // use arr as needed...
-}
-
-struct Person{
-    int age = 10;
-};
-
-/**
- * 只能接受右值
- * @brief moveArray
- * @param src
- */
 template <typename T>
-void moveArray(T &&src)
+int compare(const T &v1, const T &v2)
 {
-    MyIntArray arr(std::forward<T>(src)); // moved the array
-    // use arr as needed...
+    if (v1 < v2) return -1;  if (v2 < v1) return 1;  return 0;
 }
 
 int main(int argc, char const *argv[])
 {
-    Person person{};
+    set<int, std::less<int>> m_set = { 1, 1, 5, 3, 2, 9, 6, 7, 7 };
+    for(auto& var : m_set)
+    {
+        cout << var << " ";
+    }
+    /*Person person{};
     Person *person1 = new Person{};
     int *p1 = new int[30];//未初始化
     int *p2 = new int[30]();//3个数组元素都被初始化为0，通过调用memset或者for循环设置，具体看编译器实现
@@ -80,6 +41,6 @@ int main(int argc, char const *argv[])
     Student s("Lily");
     Student s2(s);
     Student s3 = s;
-    Student s4 = std::move(s);
+    Student s4 = std::move(s);*/
     return 0;
 }

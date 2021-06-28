@@ -1,4 +1,7 @@
 cmake-build-debug
+cmake-build-release
+out
+.cache
 compile_commands.json
 .clangd/
 build/
