@@ -95,6 +95,9 @@ add_executable(HelloC src/c/HelloC.c)
 add_executable(HelloCpp src/cpp/HelloCpp.cpp)
 add_executable(TestParameter src/c/TestParameter.c)
 add_executable(TestStringFunction src/c/TestStringFunction.c)
+add_executable(TestMMap src/c/TestMMap.c)
+
+
 add_executable(TestConstructor src/cpp/TestConstructor.cpp)
 add_executable(TestDestructor src/cpp/TestDestructor.cpp)
 add_executable(TestInherit src/cpp/TestInherit.cpp)
