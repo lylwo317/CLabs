@@ -30,7 +30,7 @@ IF (WIN32)
 	#STRING(REPLACE "-O2" "-Od" CMAKE_CXX_FLAGS_RELEASE ${CMAKE_CXX_FLAGS_RELEASE})
 ELSEIF (APPLE)
 	MESSAGE(STATUS "Now is Apple systems.")
-	find_package(SDL)
+	find_package(SDL2)
 	if (SDL2_FOUND)
 		include_directories(${SDL2_INCLUDE_DIRS}/../)
 	endif ()
@@ -44,6 +44,7 @@ ELSEIF (APPLE)
 		link_directories(${FFMPEG_HOME}/lib)
 	endif ()
 ELSEIF (UNIX)
+	MESSAGE(STATUS "Now is UNIX-like OS's. Including Linux  and CygWin")
 	if (DEBUG_GLIBC)
         #添加debug版glibc链接路径
 		set(GLIBC_LIB_DIR /home/kevin/glibc-2.31/out/lib)
@@ -80,8 +81,19 @@ ELSEIF (UNIX)
 	endif()
 
 	link_libraries(c)
-	MESSAGE(STATUS "Now is UNIX-like OS's. Including Linux  and CygWin")
+ENDIF ()
 
+
+# 添加子目录
+ADD_SUBDIRECTORY(src/ffmpeg)
+ADD_SUBDIRECTORY(src/sdl2)
+ADD_SUBDIRECTORY(src/c)
+ADD_SUBDIRECTORY(src/cpp)
+ADD_SUBDIRECTORY(src/net)
+ADD_SUBDIRECTORY(src/base)
+
+IF (UNIX)
+	MESSAGE(STATUS "Now is UNIX-like OS's. Including Linux  and CygWin")
 	add_executable(TestSds "src/string/TestSds.c" "src/string/sds.c" "src/string/zmalloc.c")
 
 	add_executable(memoryLayout src/memorylayout/MemoryLayout.c)
@@ -90,60 +102,3 @@ ELSEIF (UNIX)
 
 	add_executable(TestEPoll src/net/TestEPoll.c)
 ENDIF ()
-
-add_executable(HelloC src/c/HelloC.c)
-add_executable(HelloCpp src/cpp/HelloCpp.cpp)
-add_executable(TestParameter src/c/TestParameter.c)
-add_executable(TestStringFunction src/c/TestStringFunction.c)
-add_executable(TestMMap src/c/TestMMap.c)
-
-
-add_executable(TestConstructor src/cpp/TestConstructor.cpp)
-add_executable(TestDestructor src/cpp/TestDestructor.cpp)
-add_executable(TestInherit src/cpp/TestInherit.cpp)
-add_executable(TestInitializationList src/cpp/TestInitializationList.cpp)
-add_executable(TestVirtual src/cpp/TestVirtual.cpp)
-add_executable(TestPureVirtual src/cpp/TestPureVirtual.cpp)
-add_executable(TestMultiInherit src/cpp/TestMultiInherit.cpp)
-add_executable(TestVirtualInherit src/cpp/TestVirtualInherit.cpp)
-add_executable(TestGodBolt src/cpp/TestGodBolt.cpp)
-add_executable(TestSingleton src/cpp/TestSingleton.cpp)
-add_executable(TestOperator src/cpp/TestOperator.cpp)
-add_executable(TestMove src/cpp/TestMove.cpp)
-add_executable(TestForward src/cpp/TestForward.cpp)
-add_executable(TestCast src/cpp/TestCast.cpp)
-add_executable(TestLambda src/cpp/TestLambda.cpp)
-add_executable(TestConst src/cpp/TestConst.cpp)
-add_executable(TestConstexpr src/cpp/TestConstexpr.cpp)
-add_executable(TestAuto src/cpp/TestAuto.cpp)
-add_executable(TestDecltype src/cpp/TestDecltype.cpp)
-add_executable(TestException src/cpp/TestException.cpp)
-add_executable(TestSmartPointer src/cpp/TestSmartPointer.cpp)
-add_executable(TestTemplate src/cpp/template/TestTemplate.cpp)
-
-add_executable(TestSelect src/net/TestSelect.c)
-add_executable(TestPoll src/net/TestPoll.c)
-
-if (SDL2_FOUND)
-	add_executable(TestSDL2 src/sdl2/TestSDL2.c)
-	target_link_libraries(TestSDL2 ${SDL2_LIBRARIES})
-
-	add_executable(DisplayImage src/sdl2/DisplayImage.c)
-	target_link_libraries(DisplayImage ${SDL2_LIBRARIES})
-
-	add_executable(SimplestVideoPlaySDL2 src/ffmpeg/simplest_video_play_sdl2.cpp)
-	target_link_libraries(SimplestVideoPlaySDL2 ${SDL2_LIBRARIES})
-
-	add_executable(ffTutorial01 src/ffmpeg/tutorial01)
-	target_link_libraries(ffTutorial01
-			${SDL2_LIBRARIES}
-			avcodec
-			avdevice
-			avfilter
-			avformat
-			avutil
-			swresample
-			swscale)
-endif ()
-
-add_executable(TestLogging src/base/noncopyable.cpp src/base/logging.cpp src/base/logstream.cpp src/base/main.cpp)

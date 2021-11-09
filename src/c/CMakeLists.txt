@@ -1,0 +1,4 @@
+add_executable(HelloC HelloC.c)
+add_executable(TestParameter TestParameter.c)
+add_executable(TestStringFunction TestStringFunction.c)
+add_executable(TestMMap TestMMap.c)

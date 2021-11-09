@@ -13,3 +13,6 @@ build/
 .project
 .idea/
 /CMakeLists.txt.user
+.cache
+vscode_build/
+.vscode/

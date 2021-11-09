@@ -18,7 +18,7 @@ int main(int argc, char *args[])
     render = SDL_CreateRenderer(win, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 
     //加载图像到surface
-    bmpSurface = SDL_LoadBMP("../avatar.bmp");
+    bmpSurface = SDL_LoadBMP("/Users/kevinxie/CLionProjects/CLabs/avatar.bmp");
 
     SDL_Texture *tex = NULL;
     tex = SDL_CreateTextureFromSurface(render, bmpSurface);
@@ -31,9 +31,25 @@ int main(int argc, char *args[])
     SDL_RenderPresent(render);
 
     //暂停
-    SDL_Delay(2000);
+    int quit = 0;
+    SDL_Event e;
+    while( !quit )
+    {
+        //Handle events on queue
+        while( SDL_PollEvent( &e ) != 0 ) // poll for event
+        {
+            //User requests quit
+            if( e.type == SDL_QUIT ) // unless player manually quits
+            {
+                quit = 1;
+            }
+        }
+    }
 
     //退出SDL
+    SDL_DestroyTexture(tex);
+    SDL_DestroyRenderer(render);
+    SDL_DestroyWindow(win);
     SDL_Quit();
     return 0;
 }
