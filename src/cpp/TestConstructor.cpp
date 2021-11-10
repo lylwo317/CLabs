@@ -44,16 +44,15 @@ public:
 /*
 * 对于自定义类
 * 两种方式解决成员变量初始化的问题：
-* 1.
-直接对成员变量设置初始值，类似PersonB。但是必须每个成员都设置相应的初始值，否则没设置初始值的成员的在某些写法下是不会初始化的，例如局部变量
+* 1. 直接对成员变量设置初始值，类似PersonB。但是必须每个成员都设置相应的初始值，
+* 否则没设置初始值的成员的在某些写法下是不会初始化的，例如局部变量
 * 2. 直接定义默认构造函数，类似PersonC。可以先memset，然后再对某些成员设定非0值
 *
 * 对于原始类型的new的操作
 * 必须使用（），否者不会初始化int a = new int()
-* 自定义 
 *
 * 默认构造函数的生成规则（核心是有事情要做）
-* 1. 成员变量 = 0。也就是在声明的地方初始化了成员变量，new完之后要再默认构造函数初始化
+* 1. 成员变量 = 0。也就是在声明的地方初始化了成员变量，new完之后要在默认构造函数初始化
 * 2. 虚函数。也就是说在对象创建的时候，需要把虚表地址放到对象存储区域的头部
 * 3. 父类有默认构造函数。
 * ...其它情况有待补充
@@ -67,17 +66,19 @@ int testConstructor()
 	PersonA personA1;
 	personA1.age = 0;
 	//这个是函数声明
-	PersonA personA2();
+	PersonA personA2{};
+    //初始化为0（使用memset初始化），并没有生成所谓的默认构造函数
+    PersonA personA3{};
 
 	//没有生成构造函数，不会初始化
-	PersonA* personA3 = new PersonA;
+	PersonA* personA4 = new PersonA;
 	//初始化为0（使用memset初始化），并没有生成所谓的默认构造函数
-	PersonA* personA4 = new PersonA();
+	PersonA* personA5 = new PersonA();
 
-	//综合A1和A3可以看到，不加（）就不会初始化
+	//综合以上来看，当一个对象没有隐式或者显式构造，并且不加（）/ {}的情况下，就不会初始化
 
-	delete personA3;
 	delete personA4;
+	delete personA5;
 
 	//age = 5；导致生成了默认构造函数. 会调用默认构造函数PersonB::PresonB()。
 	//其实也能理解。age = 5。这个总是要用地方去做的，new只是分配内存，所以就由生成的构造函数做age = 5
@@ -237,7 +238,7 @@ void testCopyConstructor() {
 
 
 int main(int argc, char const* argv[]) {
-	//testConstructor();
+	testConstructor();
 	testCopyConstructor();
 	return 0;
 }

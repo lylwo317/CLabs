@@ -24,7 +24,7 @@
 
 //注意：
 // 1. 如果传的参数是常量表达式，函数就是常量表达式。
-// 这个时候可以给常量表达式赋值，也可以被普通变量赋值。但是都是将编译期计算的结果赋值给变量，而不会有函数调用
+// 这个时候可以给常量表达式赋值，也可以给普通变量赋值。但是都是将编译期计算的结果赋值给变量，而不会有函数调用
 
 // 2. 如果传的参数不是常量表达式，函数的就不是常量表达式。
 // 这个时候只可以给普通变量赋值(与普通函数调用没有区别），给常量表达式赋值就会报错
@@ -50,15 +50,18 @@ int main()
     constexpr int mfg = mf + 2;//常量表达式
 
     int i = 1;//不是常量表达式
-    //是常量，但不是常量表达式，需要运行时才能计算出summary1
+
+
+
+    constexpr int summary2 = sum(2, 2);//正确，sum(2,2)是常量表达式
+
+    // 是常量，但不是常量表达式，需要运行时才能计算出summary1
     // 原因是sum(i,2)虽然是constexpr函数，但是传的参数i不是常量表达式，导致sum(i,2)不是常量表达式
     // 由于没有加constexpr，所以编译器不会检查是否是常量表达式。
-    const int summary1 = sum(i, 2);
-    // 添加constexpr，编译就会报错，因为这个不是常量表达式
-    //constexpr int summary2 = sum(i, 2);//错误，sum(i,2)必须要是常量表达式
+    const int summary3 = sum(i, 2);//正确
+    //constexpr int summary4 = sum(i, 2);//错误，因为i不是常量表达式，所以sum(1,2)也不是常量表达式。constexpr要求=右边必须是常量表达式
 
-    //因为sum2(int,int)不是常量表达式函数
-//    constexpr int summary2 = sum2(2, 2);//报错
+    //constexpr int summary5 = sum2(2, 2);//错误，因为sum2不是常量表达式函数
 
     int r = sum(23, 40);//相当于int r = 63;
     int g = sum(i, 30);//函数调用后赋值给g

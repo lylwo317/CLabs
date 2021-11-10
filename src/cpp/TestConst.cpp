@@ -6,7 +6,7 @@
 int main()
 {
     int i = 0;
-        /*顶层*/
+    /*顶层*/
     int *const p1 = &i;
     /*顶层*/
     const int ci = 42;
