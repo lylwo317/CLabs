@@ -1,0 +1,6 @@
+add_executable(TestClassLayoutSimpleClass SimpleClass.cpp)
+add_executable(TestClassLayoutClassWithVirtual VirtualClass.cpp)
+add_executable(TestClassLayoutClassWithVirtual2 VirtualClass2.cpp)
+add_executable(TestClassLayoutClassWithVirtual3 VirtualClass3.cpp)
+add_executable(TestClassLayoutClassWithVirtual4 VirtualClass4.cpp)
+add_executable(TestClassLayoutClassWithVirtual5 VirtualClass5.cpp)

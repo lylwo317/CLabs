@@ -8,6 +8,10 @@ set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_C_STANDARD_REQUIRED True)
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall")
+#clang -Xclang -fdump-record-layouts -stdlib=libc++ -c model.cc
+#// 查看对象布局
+#clang -Xclang -fdump-vtable-layouts -stdlib=libc++ -c model.cc
+#// 查看虚函数表布局
 #set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS TRUE)
 # 生成compile_commands.json
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
