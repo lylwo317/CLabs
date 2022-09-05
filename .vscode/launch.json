@@ -4,7 +4,15 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
-    
+        {
+            "name": "(lldb) 启动",
+            "type": "lldb",
+            "request": "launch",
+            "program": "${command:cmake.launchTargetPath}",
+            //"stopOnEntry": true,//如果要断点在入口出，得设置这个。不然就断点不了在入口处了
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
         {
             "name": "(gdb) 启动",
             "type": "cppdbg",

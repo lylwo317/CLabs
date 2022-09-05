@@ -1,5 +1,5 @@
 all:
-	nasm -g -f elf64 -o hello.o hello.asm
+	nasm -g -O0 -f elf64 -o hello.o hello.asm
 	ld -o hello hello.o
 
 clean:

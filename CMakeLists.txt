@@ -18,7 +18,7 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(DEBUG_SDL2 FALSE)
 set(DEBUG_GLIBC FALSE)
 set(DEBUG_FFMPEG FALSE)
-set(CMAKE_VERBOSE_MAKEFILE TRUE)
+set(CMAKE_VERBOSE_MAKEFILE ON)
 
 add_custom_target(
 		copy-compile-commands ALL
@@ -95,6 +95,7 @@ ADD_SUBDIRECTORY(src/c)
 ADD_SUBDIRECTORY(src/cpp)
 ADD_SUBDIRECTORY(src/net)
 ADD_SUBDIRECTORY(src/base)
+ADD_SUBDIRECTORY(src/nasm)
 
 IF (UNIX)
 	MESSAGE(STATUS "Now is UNIX-like OS's. Including Linux  and CygWin")
