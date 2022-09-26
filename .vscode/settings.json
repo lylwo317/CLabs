@@ -8,5 +8,7 @@
         "new": "c",
         "iostream": "cpp",
         "utility": "cpp"
-    }
+    },
+    "C_Cpp.intelliSenseEngine": "Disabled",
+    "cmake.configureOnOpen": true,
 }

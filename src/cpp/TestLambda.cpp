@@ -55,7 +55,7 @@ void simplestLambda(){
         // auto (*ptr)() -> void  = __invoke;
         using retType_5_14 = auto (*)() -> void;
 
-        operator retType_5_14 () const noexcept
+        operator retType_5_14 () const noexcept//定义到void (*)()隐式转换
         {
             return __invoke;
         }

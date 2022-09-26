@@ -22,5 +22,6 @@ add_executable(TestException TestException.cpp)
 add_executable(TestSmartPointer TestSmartPointer.cpp)
 add_executable(TestTemplate template/TestTemplate.cpp)
 add_executable(TestInline header/TestInlineA.cpp TestInline.cpp)
+add_executable(TestLeftValue TestLeftValue.cpp)
 
 ADD_SUBDIRECTORY(class_layout)
