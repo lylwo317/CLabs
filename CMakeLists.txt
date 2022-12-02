@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.10)
 project(CLabs C CXX)
-set(CMAKE_C_COMPILER "gcc")
-set(CMAKE_CXX_COMPILER "g++")
+#set(CMAKE_C_COMPILER "clang")
+#set(CMAKE_CXX_COMPILER "clang++")
 # specify the C standard
 set(CMAKE_C_STANDARD 11)
 set(CMAKE_CXX_STANDARD 11)
@@ -64,7 +64,7 @@ ELSEIF (UNIX)
 		endif ()
 
 		if (SDL2_FOUND)
-			MESSAGE(STATUS "2SDL_FOUND.")
+			MESSAGE(STATUS "SDL2_FOUND.")
 			include_directories(${SDL2_INCLUDE_DIRS})
 			link_directories(${SDL2_LIB_DIRS})
 			set(SDL2_LIBRARIES SDL2d)
