@@ -24,5 +24,11 @@ add_executable(TestTemplate template/TestTemplate.cpp)
 add_executable(TestInline header/TestInlineA.cpp TestInline.cpp)
 add_executable(TestLeftValue TestLeftValue.cpp)
 add_executable(TestSort stl/TestSort.cpp)
+add_executable(TestThisAddOne tmp/TestThisAddOne.cpp)
+add_executable(TestMemoryOrderRelaxed memory_order/test_memory_order_relaxed.cpp)
+
+add_executable(TestDoubleCheckLockUseOnce single_instance/TestDoubleCheckLockUseOnce.cpp)
+add_executable(TestDoubleCheckLockUseAtomic single_instance/TestDoubleCheckLockUseAtomic.cpp)
+add_executable(TestStaticSingleInstance single_instance/TestStaticSingleInstance.cpp)
 
 ADD_SUBDIRECTORY(class_layout)
